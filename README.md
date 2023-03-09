@@ -1,1 +1,1 @@
-shell basics readme
+shell permissions readme
