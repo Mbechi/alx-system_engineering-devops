@@ -1,1 +1,1 @@
-shell permissions readme
+shell redirections readme
