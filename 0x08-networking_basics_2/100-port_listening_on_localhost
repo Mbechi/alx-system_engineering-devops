@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# This script listens on port 98 on localhost.
+
+# Check if the user has sufficient privileges to execute the script
+if [ "$(id -u)" -ne 0 ]; then
+  echo "This script must be run as root (sudo)." >&2
+  exit 1
+fi
+
+# Use 'nc' command to listen on port 98 on localhost
+nc -l -p 98
