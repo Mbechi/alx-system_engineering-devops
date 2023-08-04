@@ -1,6 +1,6 @@
-The OSI (Open Systems Interconnection) model is a conceptual model that characterizes the communication functions of a telecommunication system without regard to their underlying internal structure and technology. The OSI model is not tangible; it's a concept used to better understand complex interactions that happen in computer networks.
+The OSI (Open Systems Interconnection) model is a conceptual model that characterizes the communication functions of a telecommunication system without regard to their underlying internal structure and technology. The OSI model is not tangible; it's a concept used to better understand complex interactions that happen in computer networks.["2"]
 
-The OSI model is organized from the lowest level to the highest level. It consists of seven layers, each responsible for specific communication tasks:
+The OSI model is organized from the lowest level to the highest level.["2"] It consists of seven layers, each responsible for specific communication tasks:
 
 1. Layer 1 (Physical Layer): This layer deals with transmission on physical media and is responsible for converting data into electrical, light, or radio signals for transmission over the network.
 
