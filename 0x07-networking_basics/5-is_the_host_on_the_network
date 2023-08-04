@@ -10,7 +10,7 @@ fi
 ip_address="$1"
 
 # Ping the IP address 5 times and display the results
-echo "PING $ip_address ($ip_address) 56(84) bytes of data."
+echo "PING $ip_address"
 ping -c 5 "$ip_address"
 
 # Exit successfully
