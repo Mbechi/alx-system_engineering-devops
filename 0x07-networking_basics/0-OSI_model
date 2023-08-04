@@ -1,19 +1,2 @@
-The OSI (Open Systems Interconnection) model is a conceptual model that characterizes the communication functions of a telecommunication system without regard to their underlying internal structure and technology. The OSI model is not tangible; it's a concept used to better understand complex interactions that happen in computer networks.["2"]
-
-The OSI model is organized from the lowest level to the highest level.["2"] It consists of seven layers, each responsible for specific communication tasks:
-
-1. Layer 1 (Physical Layer): This layer deals with transmission on physical media and is responsible for converting data into electrical, light, or radio signals for transmission over the network.
-
-2. Layer 2 (Data Link Layer): This layer is responsible for the reliable transmission of data between directly connected nodes over a physical link. It handles issues like framing, error detection, and flow control.
-
-3. Layer 3 (Network Layer): The network layer is responsible for logical addressing and routing of data packets between different networks. IP (Internet Protocol) operates at this layer.
-
-4. Layer 4 (Transport Layer): The transport layer is responsible for end-to-end communication between hosts. It manages data segmentation, error checking, and flow control. TCP (Transmission Control Protocol) and UDP (User Datagram Protocol) are protocols at this layer.
-
-5. Layer 5 (Session Layer): This layer establishes, manages, and terminates connections between applications on different devices.
-
-6. Layer 6 (Presentation Layer): The presentation layer is responsible for data translation, compression, and encryption, ensuring that data is presented in a readable format for applications.
-
-7. Layer 7 (Application Layer): The application layer provides network services directly to end-users. Protocols like HTTP, SMTP, and SNMP operate at this layer.
-
-In this project, we will mainly focus on the Transport layer, especially TCP/UDP, and the Network layer with IP and ICMP.
+2
+2
