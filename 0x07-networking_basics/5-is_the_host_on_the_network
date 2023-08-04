@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# This script pings an IP address passed as an argument.
 
 # Check if an argument is provided
 if [ $# -ne 1 ]; then
@@ -11,5 +10,8 @@ fi
 ip_address="$1"
 
 # Ping the IP address 5 times and display the results
-echo "PING $ip_address"
+echo "PING $ip_address ($ip_address) 56(84) bytes of data."
 ping -c 5 "$ip_address"
+
+# Exit successfully
+exit 0
