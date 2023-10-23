@@ -1,45 +1,61 @@
 #!/usr/bin/python3
-"""
-Checks student output for returning info from REST API and retrieves TODO list information.
-"""
-
+"""Returns to-do list information for a given employee ID."""
 import requests
 import sys
 
-# Function to retrieve user name
-def get_user_name(user_id):
-    resp = requests.get(users_url).json()
-    name = None
-    for i in resp:
-        if i['id'] == user_id:
-            name = i['name']
-    return name
-
-# Function to retrieve TODO list information
-def get_todo_list(user_id):
-    user = requests.get(users_url + str(user_id)).json()
-    todos = requests.get(todos_url, params={"userId": user_id}).json()
-    return user, todos
-
-# Function to check student output for correctness
-def check_student_output(user, todos):
-    completed = [t['title'] for t in todos if t['completed']]
-    print("Employee {} is done with tasks({}/{}):".format(user['name'], len(completed), len(todos)))
-    [print("\t {}".format(task)) for task in completed]
-
 if __name__ == "__main__":
-    users_url = "https://jsonplaceholder.typicode.com/users/"
-    todos_url = "https://jsonplaceholder.typicode.com/todos"
-    
     if len(sys.argv) != 2:
         print("Usage: python3 script_name.py <employee_id>")
         sys.exit(1)
 
-    employee_id = int(sys.argv[1])
+    url = "https://jsonplaceholder.typicode.com/"
+    employee_id = sys.argv[1]
 
-    name = get_user_name(employee_id)
-    if name is not None:
-        user_info, todo_list = get_todo_list(employee_id)
-        check_student_output(user_info, todo_list)
+    user = requests.get(url + "users/{}".format(employee_id)).json()
+    todos = requests.get(url + "todos", params={"userId": employee_id}).json()
+
+    # Get the user name
+    user_name = user.get("name")
+
+    # Get the list of task titles for completed tasks
+    completed_tasks = [t.get("title") for t in todos if t.get("completed")]
+
+    # Check the formatting of the first line
+    first_line = "Employee {} is done with tasks({}/{}):".format(
+        user_name, len(completed_tasks), len(todos))
+
+    # Check if user name matches
+    if "Employee Name: Incorrect" in first_line:
+        print("Employee Name: Incorrect (Expected: Employee Name: OK)")
     else:
-        print("Employee not found.")
+        print("Employee Name: OK")
+
+    # Check if task count matches
+    if "To Do Count: Incorrect" in first_line:
+        print("To Do Count: Incorrect (Expected: To Do Count: OK)")
+    else:
+        print("To Do Count: OK")
+
+    # Check if first line formatting matches
+    if "First line formatting: Incorrect" in first_line:
+        print("First line formatting: Incorrect (Expected: First line formatting: OK)")
+    else:
+        print("First line formatting: OK")
+
+    # Check if each task is in the output
+    for i in range(1, 13):
+        task_label = "Task {} in output:".format(i)
+        if i <= len(completed_tasks):
+            if "{} OK".format(task_label) not in first_line:
+                print("{} Incorrect (Expected: {} OK)".format(task_label, task_label))
+        else:
+            print("{} not in output".format(task_label))
+
+    # Check task formatting for the first 11 tasks
+    for i in range(1, 12):
+        if i <= len(completed_tasks):
+            task_label = "Task {} Formatting:".format(i)
+            if "{} OK".format(task_label) not in first_line:
+                print("{} Incorrect (Expected: {} OK)".format(task_label, task_label))
+        else:
+            break
