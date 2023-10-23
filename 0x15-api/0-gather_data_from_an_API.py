@@ -1,41 +1,33 @@
 #!/usr/bin/python3
-"""script using this REST API, for a given employee ID,
-returns information about his/her TODO list progress."""
-import requests as r
+"""
+Gather data from a REST API for a given employee ID
+"""
+
+import requests
 import sys
 
-"""
-This script retrieves information about a given
-employee's TODO list progress using a REST API.
+if __name__ == "__main":
+    if len(sys.argv) != 2:
+        print("Usage: python3 0-gather_data_from_an_API.py <employee_id>")
+        sys.exit(1)
 
-Usage:
-    python script.py [employee_id]
+    employee_id = int(sys.argv[1]
+    base_url = "https://jsonplaceholder.typicode.com"
+    user_url = f"{base_url}/users/{employee_id}"
+    todos_url = f"{base_url}/todos?userId={employee_id}"
 
-Args:
-    employee_id (int): The ID of the employee
-    to retrieve TODO list progress for.
+    try:
+        user_data = requests.get(user_url).json()
+        todos_data = requests.get(todos_url).json()
 
-Example:
-    python script.py 1
+        employee_name = user_data.get("name")
+        total_tasks = len(todos_data)
+        completed_tasks = [task for task in todos_data if task.get("completed")]
 
-Inputs:
-    sys.argv[1] (str): The employee ID passed as a command line argument.
+        print(f"Employee {employee_name} is done with tasks({len(completed_tasks)}/{total_tasks}):")
 
-Outputs:
-    The titles of the completed tasks.
-    A summary message that includes the employee's name,
-    the number of completed tasks, and the total number of tasks.
-"""
+        for task in completed_tasks:
+            print(f"\t {task.get('title')}")
 
-if __name__ == '__main__':
-    url = 'https://jsonplaceholder.typicode.com/'
-    usr_id = r.get(url + 'users/{}'.format(sys.argv[1])).json()
-    to_do = r.get(url + 'todos', params={'userId': sys.argv[1]}).json()
-#    print(to_do)
-    completed = [title.get("title") for title in to_do if
-                 title.get('completed') is True]
-    print(completed)
-    print("Employee {} is done with tasks({}/{}):".format(usr_id.get("name"),
-                                                          len(completed),
-                                                          len(to_do)))
-    [print("\t {}".format(title)) for title in completed]
+    except requests.exceptions.RequestException as e:
+        print(f"An error occurred: {e}")
